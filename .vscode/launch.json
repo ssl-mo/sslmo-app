@@ -1,14 +1,6 @@
 {
     "configurations": [
         {
-            "name": "debug",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
-            "program": "lib/main.dart",
-            "args": []
-        },
-        {
             "name": "dev-debug",
             "request": "launch",
             "type": "dart",
