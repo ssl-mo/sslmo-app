@@ -60,6 +60,8 @@
 		C44EEDD22A53B0EE0002A7A3 /* Profile-Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-Prod.xcconfig"; path = "Flutter/Profile-Prod.xcconfig"; sourceTree = "<group>"; };
 		C44EEDD32A53B0EF0002A7A3 /* Release-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-Dev.xcconfig"; path = "Flutter/Release-Dev.xcconfig"; sourceTree = "<group>"; };
 		C44EEDD42A53B0EF0002A7A3 /* Profile-Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-Dev.xcconfig"; path = "Flutter/Profile-Dev.xcconfig"; sourceTree = "<group>"; };
+		C44EEDD92A5642B40002A7A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C44EEDDB2A5642B40002A7A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9238056D905D88E51302D1D /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D09FC2048FDB418F8481AC /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +124,8 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				C44EEDDA2A5642B40002A7A3 /* Dev */,
+				C44EEDD82A5642B40002A7A3 /* Prod */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -153,6 +157,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C44EEDD82A5642B40002A7A3 /* Prod */ = {
+			isa = PBXGroup;
+			children = (
+				C44EEDD92A5642B40002A7A3 /* GoogleService-Info.plist */,
+			);
+			path = Prod;
+			sourceTree = "<group>";
+		};
+		C44EEDDA2A5642B40002A7A3 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				C44EEDDB2A5642B40002A7A3 /* GoogleService-Info.plist */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
 		D2465BB49C1C56E78C6702F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +196,7 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
+				C44EEDD52A56423A0002A7A3 /* Firebase Script */,
 				BCA9C59883CD274DC36606DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -286,7 +307,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		BCA9C59883CD274DC36606DD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -304,6 +325,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C44EEDD52A56423A0002A7A3 /* Firebase Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Firebase Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script copies the right firebase configuration ( GoogleService-Info.plist file ) for the running flavor.\n# It must be run as a Build Phase. It assumes three flavors: \"dev\", \"stage\" and \"prod\".\n\nif [ \"${CONFIGURATION}\" == \"Debug-prod\" ] || [ \"${CONFIGURATION}\" == \"Release-prod\" ] || [ \"${CONFIGURATION}\" == \"Profile-prod\" ];\nthen\n  cp -r \"${PROJECT_DIR}/Runner/Prod/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\"\nelif [ \"${CONFIGURATION}\" == \"Debug-dev\" ] || [ \"${CONFIGURATION}\" == \"Release-dev\" ] || [ \"${CONFIGURATION}\" == \"Profile-dev\" ]; \nthen\n  cp -r \"${PROJECT_DIR}/Runner/Dev/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
