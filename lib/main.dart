@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,9 +11,12 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sslmo/constant/storage_key.dart';
+import 'package:sslmo/firebase_options.dart';
+import 'package:sslmo/provider/app_provider.dart';
 import 'package:sslmo/provider/router_provider.dart';
 import 'package:sslmo/provider/storage_provider.dart';
 import 'package:sslmo/util/logger.dart';
+import 'package:sslmo/util/mode.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +26,20 @@ Future<void> main() async {
 
   // .env 가져옴
   await dotenv.load(fileName: ".env");
+
+  // 에러 시 FirebaseCrashlytics 로 에러 값 보냄
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  await Firebase.initializeApp(
+    options: await currentPlatform(),
+  );
 
   const secureStorage = FlutterSecureStorage(
     aOptions: AndroidOptions(
@@ -36,6 +56,7 @@ Future<void> main() async {
   return runApp(
     ProviderScope(
       overrides: [
+        appModeProvider.overrideWithValue(await getAppMode()),
         secureStorageProvider.overrideWithValue(secureStorage),
         localStorageProvider.overrideWithValue(localStorage),
       ],
