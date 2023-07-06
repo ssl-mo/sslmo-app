@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sslmo/constant/storage_key.dart';
@@ -58,20 +60,37 @@ class MyApp extends ConsumerWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp.router(
-          theme: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            scaffoldBackgroundColor: Colors.white,
+        return GlobalLoaderOverlay(
+          useDefaultLoading: false,
+          overlayColor: Colors.transparent,
+          overlayWidget: Center(
+            child: Container(
+              height: 82.r,
+              width: 82.r,
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3), borderRadius: BorderRadius.circular(12.r)),
+              child: Center(
+                child: CupertinoActivityIndicator(
+                  color: Colors.white,
+                  radius: 15.r,
+                ),
+              ),
+            ),
           ),
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: widget ?? const SizedBox.shrink(),
-            );
-          },
+          child: MaterialApp.router(
+            theme: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            routerConfig: router,
+            debugShowCheckedModeBanner: false,
+            builder: (context, widget) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: widget ?? const SizedBox.shrink(),
+              );
+            },
+          ),
         );
       },
     );
