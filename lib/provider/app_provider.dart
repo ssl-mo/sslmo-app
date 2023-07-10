@@ -10,6 +10,11 @@ AppMode appMode(AppModeRef ref) {
 }
 
 @riverpod
+String chatUrl(ChatUrlRef ref) {
+  return dotenv.get("CHAT_URL");
+}
+
+@riverpod
 String baseUrl(BaseUrlRef ref) {
   final appMode = ref.watch(appModeProvider);
 
