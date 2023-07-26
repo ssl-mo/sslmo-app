@@ -10,31 +10,38 @@ AppMode appMode(AppModeRef ref) {
 }
 
 @riverpod
-String chatUrl(ChatUrlRef ref) {
-  return dotenv.get("CHAT_URL");
-}
-
-@riverpod
-String baseUrl(BaseUrlRef ref) {
+String apiUrl(ApiUrlRef ref) {
   final appMode = ref.watch(appModeProvider);
 
   switch (appMode) {
     case AppMode.dev:
-      return dotenv.get("DEV_BASE_URL");
+      return dotenv.get("DEV_API_URL");
     case AppMode.prod:
-      return dotenv.get("PROD_BASE_URL");
+      return dotenv.get("PROD_API_URL");
   }
 }
 
 @riverpod
-String appKey(AppKeyRef ref) {
+String apiKey(ApiKeyRef ref) {
   final appMode = ref.watch(appModeProvider);
 
   switch (appMode) {
     case AppMode.dev:
-      return dotenv.get("DEV_APP_KEY");
+      return dotenv.get("DEV_API_KEY");
     case AppMode.prod:
-      return dotenv.get("PROD_APP_KEY");
+      return dotenv.get("PROD_API_KEY");
+  }
+}
+
+@riverpod
+String chatUrl(ChatUrlRef ref) {
+  final appMode = ref.watch(appModeProvider);
+
+  switch (appMode) {
+    case AppMode.dev:
+      return dotenv.get("DEV_CHAT_URL");
+    case AppMode.prod:
+      return dotenv.get("PROD_CHAT_URL");
   }
 }
 
@@ -59,5 +66,29 @@ String appStatusKey(AppStatusKeyRef ref) {
       return "DEV_APP_STATUS";
     case AppMode.prod:
       return "PROD_APP_STATUS";
+  }
+}
+
+@riverpod
+String kakaoNativeKey(KakaoNativeKeyRef ref) {
+  final appMode = ref.watch(appModeProvider);
+
+  switch (appMode) {
+    case AppMode.dev:
+      return dotenv.get("DEV_KAKAO_NATIVE_KEY");
+    case AppMode.prod:
+      return dotenv.get("PROD_KAKAO_NATIVE_KEY");
+  }
+}
+
+@riverpod
+String kakaoJSKey(KakaoJSKeyRef ref) {
+  final appMode = ref.watch(appModeProvider);
+
+  switch (appMode) {
+    case AppMode.dev:
+      return dotenv.get("DEV_KAKAO_JS_KEY");
+    case AppMode.prod:
+      return dotenv.get("PROD_KAKAO_JS_KEY");
   }
 }

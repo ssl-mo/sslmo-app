@@ -70,6 +70,8 @@ dependencies:
 
   # Util
   flutter_dotenv: ^5.1.0
+  
+  kakao_flutter_sdk_user: ^1.4.1
 
   # Socket.IO
   socket_io_client: ^2.0.2

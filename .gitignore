@@ -406,4 +406,7 @@ google-services.json
 GoogleService-Info.plist
 firebase_app_id_file.json
 
+ios/Flutter/Dev.xcconfig
+ios/Flutter/Prod.xcconfig
+
 .DS_Store

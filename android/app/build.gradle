@@ -1,3 +1,36 @@
+def keyProperties = new Properties()
+def keyPropertiesFile = rootProject.file('key.properties')
+if (keyPropertiesFile.exists()) {
+    keyPropertiesFile.withReader('UTF-8') { reader ->
+        keyProperties.load(reader)
+    }
+}
+
+def devKakaoScheme = keyProperties.getProperty('devKakaoScheme')
+if (devKakaoScheme == null) {
+    throw new GradleException("devKakaoScheme not found. Define location with devKakaoScheme in the key.properties file.")
+}
+
+def prodKakaoScheme = keyProperties.getProperty('prodKakaoScheme')
+if (prodKakaoScheme == null) {
+    throw new GradleException("prodKakaoScheme not found. Define location with prodKakaoScheme in the key.properties file.")
+}
+
+def naverClientID = keyProperties.getProperty('naverClientID')
+if (naverClientID == null) {
+    throw new GradleException("naverClientID not found. Define location with naverClientID in the key.properties file.")
+}
+
+def naverSecret = keyProperties.getProperty('naverSecret')
+if (naverSecret == null) {
+    throw new GradleException("naverSecret not found. Define location with naverSecret in the key.properties file.")
+}
+
+def naverName = keyProperties.getProperty('naverName')
+if (naverName == null) {
+    throw new GradleException("naverName not found. Define location with naverName in the key.properties file.")
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -52,6 +85,10 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        resValue "string", "client_id", naverClientID
+        resValue "string", "client_secret", naverSecret
+        resValue "string", "client_name", naverName
     }
 
     buildTypes {
@@ -69,12 +106,14 @@ android {
             dimension "app"
             applicationId "com.sslmo.sslmo.dev"
             resValue "string", "app_name", "쓸모 DEV"
+            resValue "string", "kakao_scheme", devKakaoScheme
         }
         
         prod {
             dimension "app"
             applicationId "com.sslmo.sslmo"
             resValue "string", "app_name", "쓸모"
+            resValue "string", "kakao_scheme", prodKakaoScheme
         }
     }
 }
