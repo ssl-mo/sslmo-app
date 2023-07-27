@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,12 +20,26 @@ import 'package:sslmo/provider/router_provider.dart';
 import 'package:sslmo/provider/storage_provider.dart';
 import 'package:sslmo/util/logger.dart';
 import 'package:sslmo/util/mode.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   // 가로 모드 세팅
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // 스플래쉬 화면 유지
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // .env 가져옴
   await dotenv.load(fileName: ".env");
