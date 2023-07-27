@@ -83,7 +83,7 @@ class MyApp extends ConsumerWidget {
 
     // 반응형 화면을 위해 ScreenUtilInit 세팅
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {

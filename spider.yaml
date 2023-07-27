@@ -39,3 +39,7 @@ groups:
     class_name: SvgImage
     file_name: svg
     types: [.svg]
+  - path: asset/riv
+    class_name: RivFile
+    file_name: riv
+    types: [.riv]
