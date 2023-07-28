@@ -1,4 +1,5 @@
 import UIKit
+import NaverThirdPartyLogin
 import Flutter
 
 @UIApplicationMain
@@ -22,5 +23,19 @@ import Flutter
         })
         
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+    
+
+    override func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var applicationResult = false
+        if (!applicationResult) {
+           applicationResult = NaverThirdPartyLoginConnection.getSharedInstance().application(app, open: url, options: options)
+        }
+        // if you use other application url process, please add code here.
+        
+        if (!applicationResult) {
+           applicationResult = super.application(app, open: url, options: options)
+        }
+        return applicationResult
     }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -72,7 +73,9 @@ class SignInView extends HookConsumerWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: InkWell(
-                onTap: () {},
+                onTap: () async {
+                  NaverLoginResult res = await FlutterNaverLogin.logIn();
+                },
                 child: const SMPngImage(
                   PngImage.naverLogin,
                   width: double.infinity,
