@@ -26,6 +26,10 @@ class OnboardView extends HookConsumerWidget {
               onTap: () => context.go(AppRoute.chat),
               child: const Text("채팅 이동"),
             ),
+            InkWell(
+              onTap: () => context.go(AppRoute.search),
+              child: const Text("검색창 이동"),
+            ),
           ],
         ),
       ),
