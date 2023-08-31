@@ -7,7 +7,9 @@ class SMSingleScroll extends SingleChildScrollView {
     super.reverse,
     super.padding,
     super.primary,
-    super.physics = const BouncingScrollPhysics(),
+    super.physics = const AlwaysScrollableScrollPhysics(
+      parent: BouncingScrollPhysics(),
+    ),
     super.controller,
     super.child,
     super.dragStartBehavior,

@@ -1,15 +1,15 @@
 part of 'index.dart';
 
-class Primary {
-  Primary._();
+class PrimaryColors {
+  PrimaryColors._();
 
   static const light = Color(0xFFC2F2CB);
   static const accent = Color(0xFF1CC73D);
   static const dark = Color(0xFF058E20);
 }
 
-class Secondary {
-  Secondary._();
+class SecondaryColors {
+  SecondaryColors._();
 
   static const bg01 = Color(0xFFFBFBFB);
   static const bg02 = Color(0xFFE7E7E7);
@@ -18,8 +18,8 @@ class Secondary {
   static const bg05 = Color(0xFF000900);
 }
 
-class State {
-  State._();
+class StateColors {
+  StateColors._();
 
   static const error = Color(0xFFD32F2F);
   static const errorLight = Color(0xFFFFE3E3);

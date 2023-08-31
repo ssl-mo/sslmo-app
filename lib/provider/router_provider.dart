@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sslmo/module/chat/chat_view.dart';
-import 'package:sslmo/module/onboard_view.dart';
-import 'package:sslmo/module/search/search_view.dart';
-import 'package:sslmo/module/sign_in/sign_in_view.dart';
+import 'package:sslmo/module/main/main_view.dart';
+import 'package:sslmo/module/onboard/sign_in/sign_in_view.dart';
+import 'package:sslmo/module/onboard/sign_up/sgin_up_view.dart';
+import 'package:sslmo/module/onboard/onboard_view.dart';
 import 'package:sslmo/module/splash/splash_view.dart';
 
 part 'router_provider.g.dart';
@@ -11,14 +11,16 @@ part 'router_provider.g.dart';
 class AppRoute {
   AppRoute._();
 
+  static const init = AppRoute.splash;
+
   static const splash = '/splash';
 
   static const onboard = '/onboard';
   static const signIn = '$onboard/sign/in';
-  static const chat = '$onboard/chat';
-  static const search = '$onboard/search';
+  static const signUp = '$onboard/sign/up';
+  static const passwordReset = '$onboard/password/reset';
 
-  static const init = AppRoute.splash;
+  static const main = '/main';
 
   static final routes = [
     GoRoute(
@@ -34,15 +36,15 @@ class AppRoute {
           builder: (context, state) => const SignInView(),
         ),
         GoRoute(
-          path: AppRoute.chat.replaceAll("$onboard/", ""),
-          builder: (context, state) => const ChatView(),
-        ),
-        GoRoute(
-          path: AppRoute.search.replaceAll("$onboard/", ""),
-          builder: (context, state) => const SearchView(),
+          path: AppRoute.signUp.replaceAll("$onboard/", ""),
+          builder: (context, state) => const SignUpView(),
         ),
       ],
     ),
+    GoRoute(
+      path: AppRoute.main,
+      builder: (context, state) => const MainView(),
+    )
   ];
 }
 
